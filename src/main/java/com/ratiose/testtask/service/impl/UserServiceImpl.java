@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByEmail(email);
         if (user != null) {
             throw new RequestException(HttpStatus.BAD_REQUEST,
-                  String.format("User with specified email: %s and password: %s already exists"));
+                  String.format("User with specified email: %s and password: %s already exists", email, password));
         }
         user = createUser(email, password);
         return userRepository.save(user);
@@ -42,7 +42,8 @@ public class UserServiceImpl implements UserService {
                 return foundUser;
             }
         }
-        return null;
+        throw new RequestException(HttpStatus.NOT_FOUND,
+            String.format("User with specified email: %s and password: %s does not exist", email, password));
     }
 
     private User createUser(String email, String password) {

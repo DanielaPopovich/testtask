@@ -7,18 +7,18 @@ public class User {
 
     @Id
     @GeneratedValue
-    String id;
+    Long id;
 
     @Column(unique=true)
     String email;
 
     String password;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
